@@ -8,11 +8,11 @@ def search(arg):
 
 # arg contains a dict with a single key:value
 # locus is AGI identifier and is mandatory
-    
+
     # Return nothing if client didn't pass in a locus parameter
     if not ('locus' in arg):
        return
-    
+
     # Validate against a regular expression
     locus = arg['locus']
     locus = locus.upper()
@@ -20,11 +20,11 @@ def search(arg):
     if not p.search(locus):
         return
 
-    param = '[{%22agi%22:%22' + locus + '%22}]'
-    r = requests.get('http://www.phytosystems.ulg.ac.be/florid/details?gene=' + param + '&type=json')
-    
+    url = 'http://www.phytosystems.ulg.ac.be/florid/details?gene=' + locus + '&type=json'
+    r = requests.get(url)
+
     # print r.headers['Content-Type']
-    
+
     if r.ok:
         return r.json()
     else:
